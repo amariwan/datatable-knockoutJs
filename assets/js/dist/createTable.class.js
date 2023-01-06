@@ -336,8 +336,7 @@ class createTable {
 								}
 							});
 							row.refresh.push(() => {
-								// console.log('refresh', datum[column].value);
-								console.log('refresh');
+								console.log('refresh', datum[column].value);
 							});
 						} else {
 							// Set the variable d to the value of the column in the datum.
