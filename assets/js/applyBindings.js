@@ -8,8 +8,8 @@ const url = {
 };
 var _tableFormVM = new tableForm();
 var _tableVM = new tableVM(url, '_sub');
-var data = await connectToServer(url.main, 'get', true, '');
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+	var data = await connectToServer(url.main, 'get', true, '');
 	const id = '_index';
 	const loadingData = async () => {
 		var _tableVM = new tableVM(url, id);
