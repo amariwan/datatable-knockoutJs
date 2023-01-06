@@ -336,7 +336,7 @@ class createTable {
 									log(datum[column].key, ' lol');
 								}
 							});
-							row.refresh.push(() => {
+							row.refresh = () => {
 								console.log('refresh', datum);
 							});
 						} else {
