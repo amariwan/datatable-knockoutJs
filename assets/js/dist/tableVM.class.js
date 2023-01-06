@@ -68,7 +68,7 @@ class tableVM {
 		/* A function that is called when the data is loaded. */
 		self.init = async (data) => {
 			try {
-				if (data == null) data = await connectToServer(url.main, 'get', true, { secure: 'unsicher', objtype: 'srvReqLxwStapel', reqobj: ' { objtype: "srvFilter", filter: [{ name: "limit", value: "1000" }] }', sessionUID: '87888d63-cb3f-458e-ab05-9ba4369c4073' });
+				if (data == null) return false;
 				// if (typeof data == 'string' || data.length <= 0) {
 				// 	console.error('error: ' + data);
 				// }
