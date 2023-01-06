@@ -2,11 +2,14 @@
 // the API URL of the backend is entered here to retrieve the data
 localStorage.setItem('isTableForm', 'false');
 localStorage.setItem('isTableSubOpen', 'false');
-
+const url = {
+	main: 'https://192.168.44.185:4000/',
+	sub: 'https://192.168.44.185:4000/sub',
+};
 var _tableFormVM = new tableForm();
 var _tableVM = new tableVM(url, '_sub');
 document.addEventListener('DOMContentLoaded', async () => {
-	var data = await connectToServer('get', '');
+	var data = await connectToServer(url.main, 'get', true, '');
 	const id = '_index';
 	const loadingData = async () => {
 		var _tableVM = new tableVM(url, id);
