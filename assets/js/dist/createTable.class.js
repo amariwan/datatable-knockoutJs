@@ -313,6 +313,7 @@ class createTable {
 						class: [],
 						edit: [],
 						refresh: [],
+						isSelectedRows: ,
 					};
 					columns.forEach((column) => {
 						column = column.text;
