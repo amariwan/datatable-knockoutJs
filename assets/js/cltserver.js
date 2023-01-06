@@ -4,7 +4,7 @@ const url = {
 	main: 'https://192.168.44.185:4000/',
 	sub: 'https://192.168.44.185:4000/sub',
 };
-connectToServer = async (url, type, async, body) => {
+connectToServer = async (type, async, body) => {
 	console.log(url, type, async, body);
 	return new Promise((resolve, reject) => {
 		$.ajax({
