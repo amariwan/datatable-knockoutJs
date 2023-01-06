@@ -312,7 +312,7 @@ class createTable {
 						columns: [],
 						class: [],
 						edit: [],
-						refresh: [],
+						refresh: "",
 						isSelectedRows: ko.observable(false),
 					};
 					columns.forEach((column) => {
