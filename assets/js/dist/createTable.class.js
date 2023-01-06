@@ -454,7 +454,6 @@ class createTable {
 
 		self.getKey = async (key, doReset) => {
 			log(key, doReset);
-			var body = { objtype: 'srvReqKey', key: key, session: sessionStorage.getItem('glb_sessionUID') };
 			var data = await connectToServer(self.url.sub, 'post', true, body);
 			log(data.type[0]);
 			if (data.type[0] == 'table') {
