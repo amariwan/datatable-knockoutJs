@@ -455,6 +455,7 @@ class createTable {
 		self.getKey = async (key, doReset) => {
 			log(key, doReset);
 			var data = await connectToServer(self.url.sub, 'post', true, key);
+			console.log(data);
 			log(data.type[0]);
 			if (data.type[0] == 'table') {
 				self.createSubTable(data);
