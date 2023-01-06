@@ -312,6 +312,7 @@ class createTable {
 						columns: [],
 						class: [],
 						edit: [],
+						refresh: [],
 					};
 					columns.forEach((column) => {
 						column = column.text;
