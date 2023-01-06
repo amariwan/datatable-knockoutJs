@@ -310,8 +310,8 @@ class tableVM {
 			}
 			return lst;
 		};
-		self.refresh = (x) => {
-			console.log(x);
+		self.refresh = () => {
+			console.log('refresh');
 		};
 		//-------------------------------------------------------
 		// || ======== *** getJson *** ========= ||
