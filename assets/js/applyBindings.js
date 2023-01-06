@@ -8,7 +8,7 @@ const url = {
 };
 var _tableFormVM = new tableForm();
 var _tableVM = new tableVM(url, '_sub');
-var data = await connectToServer(url.main, 'get', true, { secure: 'unsicher', objtype: 'srvReqLxwStapel', reqobj: ' { objtype: "srvFilter", filter: [{ name: "limit", value: "1000" }] }', sessionUID: '87888d63-cb3f-458e-ab05-9ba4369c4073' });
+var data = await connectToServer(url.main, 'get', true, '');
 document.addEventListener('DOMContentLoaded', () => {
 	const id = '_index';
 	const loadingData = async () => {
