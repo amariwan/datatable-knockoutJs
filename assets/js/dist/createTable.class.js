@@ -312,7 +312,7 @@ class createTable {
 						columns: [],
 						class: [],
 						edit: [],
-						refresh: "",
+						refresh: '',
 						isSelectedRows: ko.observable(false),
 					};
 					columns.forEach((column) => {
@@ -338,7 +338,7 @@ class createTable {
 							});
 							row.refresh = () => {
 								console.log('refresh', datum);
-							});
+							};
 						} else {
 							// Set the variable d to the value of the column in the datum.
 							var value = datum[column];
