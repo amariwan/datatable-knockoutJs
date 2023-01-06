@@ -1,10 +1,5 @@
 // This function can lead to errors
-
-const url = {
-	main: 'https://192.168.44.185:4000/',
-	sub: 'https://192.168.44.185:4000/sub',
-};
-connectToServer = async (type, async, body) => {
+connectToServer = async (url, type, async, body) => {
 	console.log(url, type, async, body);
 	return new Promise((resolve, reject) => {
 		$.ajax({
