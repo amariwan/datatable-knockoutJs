@@ -228,7 +228,8 @@
                         <!-- end Loading -->
                         <tr>
                             <td>
-                                <input type="checkbox" data-bind="attr: { value: cells}, checked: $parent.selectedRows">
+                                <input type="checkbox"
+                                    data-bind="checked: $parent.selectedRows,  event: { change: refresh(CheckVal()) }">
                             </td>
                             <td>
                                 <label data-bind=" text: $index()"></label>
