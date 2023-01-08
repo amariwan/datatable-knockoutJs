@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="de_DE" color-mode="light">
+
+    <head>
+        <title>DataTable</title>
+        <!--=============== basic  ===============-->
+        <meta charset="utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta property="og:locale" content="de_DE" />
+        <meta property="og:title" content="navigation" />
+        <meta property="og:type" content="webapp" />
+        <meta property="og:site_name" content="DataTable" />
+        <meta name="robots" content="index" />
+        <meta name="theme-color" content="#343a40">
+        <meta name="author" content="GSSD" />
+        <meta name="Description" content="navigation" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <!--=============== Manifest  ===============-->
+        <link rel="manifest" href="manifest.json">
+        <!--=============== favicons ===============-->
+        <meta name="msapplication-TileImage" content="./assets/img/logo.png" />
+        <link rel="icon" href="./assets/img/logo.png" sizes="32x32" />
+        <link rel="icon" href="./assets/img/logo.png" sizes="192x192" />
+        <link rel="apple-touch-icon" href="./assets/img/logo.png" />
+        <!--=============== css  ===============-->
+        <link type="text/css" rel="stylesheet" href="./assets/css/style.css" />
+        <link type="text/css" rel="stylesheet" href="./assets/extern/notify/notify.css" />
+        <link type="text/css" rel="stylesheet" href="./assets/extern/css/font-awesome.6.1.1.all.min.css" />
+        <link type="text/css" rel="stylesheet" href="./assets/extern/css/webfonts.css" />
+        <link type="text/css" rel="stylesheet"
+            href="./assets/extern/multi_select_dropdown_with_checkbox/multi-select.css" />
+        <!--=============== JS  ===============-->
+        <script type="text/javascript" src="./assets/extern/jquery/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="./assets/extern/knockout/knockout-3.5.1.js"></script>
+        <script type="text/javascript" src="./assets/extern/cookie/cookie.min.js"></script>
+        <script type="text/javascript" src="./assets/extern/notify/notify.js"></script>
+
+    </head>
+
+    <body>
+        <div class="splitter">
+            <!--======================================================-->
+            <!--================== start main-Table ==================-->
+            <!--======================================================-->
+            <div id="Table" data-bind="css:'table'+ $root.classID()">
+                <div data-bind="click: $root.openOrCloseTable" class="button-table-open hidden" id="button-table-open">
+                </div>
+                <table class="table table-bordered resizable">
+                    <thead>
+                        <header class="navbar navbar-expand-lg blurTable  ">
+                            <div class="navbar_container">
+                                <div class="left">
+                                    <div class="d-flex">
+                                        <div>
+                                            <button class="hidden"
+                                                data-bind="css:'isCanShowSelectedRows'+ $root.classID(), click:cleanSelectedRows">clean
+                                                selected
+                                                Rows</button>
+                                        </div>
+                                        <!-- start -->
+                                        <div class="dropdown">
+                                            <div class="dropdown-check-list"
+                                                data-bind="click:checkList1, css: 'checkList1'+classID() "
+                                                tabindex="100">
+                                                <span class="anchor">propertys</span>
+                                                <ul class="items blurTable border-radius-lg">
+                                                    <li>
+                                                        <label class="px-1">
+                                                            <input type="checkbox"
+                                                                data-bind="checked: selectedAllPropertys"
+                                                                title="Select all/none" />
+                                                            Select all/none
+                                                        </label>
+                                                    </li>
+                                                    <!-- ko foreach: propertys -->
+                                                    <li>
+                                                        <label class="px-1">
+                                                            <input type="checkbox"
+                                                                data-bind="checkedValue: $data, checked: $parent.selectedPropertys, attr: { id: $data.text }">
+                                                            <label
+                                                                data-bind="attr: { for: $data.text }, text:$data.text"></label>
+                                                        </label>
+                                                    </li>
+                                                    <!-- /ko -->
+                                                </ul>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+                                        <!-- end -->
+                                        <!-- start -->
+                                        <div class="dropdown">
+                                            <div data-bind="click:checkList2, css: 'checkList2'+classID() "
+                                                class="dropdown-check-list" tabindex="100">
+                                                <span class="anchor">Export</span>
+                                                <ul class="items blurTable border-radius-lg">
+                                                    <li
+                                                        style="flex-direction: column;display: flex;align-items: flex-start;">
+                                                        <label class="px-1">
+                                                            <button data-bind="css: 'DLtoExcel'+classID()"
+                                                                class="btn btn-danger">Export
+                                                                Excel</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button data-bind="click: DLtoExcel"
+                                                                class="btn btn-danger">Export
+                                                                Txt</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button id='DLtoJson' class="btn btn-danger">Export
+                                                                Json</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button id='DLtoXml' class="btn btn-danger">Export
+                                                                Xml</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button id='DLtoSql' class="btn btn-danger">Export
+                                                                Sql</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button id='DLtoDoc' class="btn btn-danger">Export
+                                                                Doc</button>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+                                        <!-- end -->
+                                        <!-- start -->
+                                        <div class="dropdown">
+                                            <div data-bind="click:checkList3, css: 'checkList3'+classID() "
+                                                class="dropdown-check-list" tabindex="100">
+                                                <span class="anchor">
+                                                    option
+                                                </span>
+                                                <ul class="items blurTable border-radius-lg">
+                                                    <li
+                                                        style="flex-direction: column;display: flex;align-items: flex-start;">
+                                                        <label class="px-1">
+                                                            <button class="btn btn-danger"
+                                                                data-bind="click: $root.deleteRecordsRows">delete</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button class="btn btn-danger"
+                                                                data-bind="click: $root.updateRecordsRows">update</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button class="btn btn-danger"
+                                                                data-bind="click: $root.insertRecordsRows">insert</button>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+                                        <!-- end -->
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <div class="d-flex">
+                                        <div>
+                                            <button class="color-mode__btn light--hidden"
+                                                aria-label="Toggle light mode">
+                                                <svg aria-hidden="true">
+                                                    <use href="#sun"></use>
+                                                </svg>
+                                            </button>
+                                            <button class="color-mode__btn dark--hidden" aria-label="Toggle dark mode">
+                                                <svg aria-hidden="true">
+                                                    <use href="#moon"></use>
+                                                </svg>
+                                            </button>
+                                            <svg style="display: none;">
+                                                <symbol viewBox="0 0 24 24" id="moon">
+                                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                                </symbol>
+                                                <symbol viewBox="0 0 24 24" id="sun">
+                                                    <circle cx="12" cy="12" r="5"></circle>
+                                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                                </symbol>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+
+                        <tr>
+                            <th>
+                                <button class="hidden"
+                                    data-bind="css:'isCanShowSelectedRows'+ $root.classID(),click:showSelectedRows, text:showSelectedRowstxt, attr: { title:showSelectedRowstit }"></button>
+                            </th>
+                            <th>
+                                <button class="hidden"
+                                    data-bind="click:cleanSearchArray, css: 'isCanClearnSearchInput'+classID() ">X</button>
+                            </th>
+                            <!-- ko foreach: columns -->
+                            <th data-bind=" css:displayName+ $root.classID()">
+                                <div class="resize">
+                                    <!-- /* Binding the searchInput to the textInput. */ -->
+                                    <div class="search-body">
+                                        <input type="search" class="form-control " id="search"
+                                            data-bind=" attr: {placeholder: displayName}, textInput: searchInput, valueUpdate:'keyup', css: 'searchInput'+$root.classID()">
+                                        <!-- /* A label that is bound to the searchInput. */ -->
+                                    </div>
+                                </div>
+                            </th>
+                            <!-- /ko -->
+                        </tr>
+                        <!-- /* Creating a table row for each column. */ -->
+                        <tr>
+                            <th>
+                                <!-- <input type="checkbox" data-bind="checked:isSelectedAllRowsChecked" title="" /> -->
+                                <input type="checkbox"
+                                    data-bind="checked:isSelectedAllRowsChecked ,event: { change: selectedAllRows }"
+                                    title="" />
+                            </th>
+                            <th>
+                                <label>#</label>
+                            </th>
+                            <!-- ko foreach: columns -->
+                            <!-- /* A click event that is bound to the `fold` function. */ -->
+                            <th data-bind=" click:fold, css:displayName + $root.classID()">
+                                <div class="d-flex justify-content-between">
+                                    <!-- /* A label that is bound to the searchInput. */ -->
+                                    <label data-bind="text: displayName"></label>
+                                    <div data-bind="class: sortClass"></div>
+                                </div>
+                            </th>
+                            <!-- /ko -->
+                        </tr>
+                    </thead>
+                    <!-- /* Creating a table row for each row in the data. */ -->
+                    <tbody data-bind="foreach: rows">
+                        <!-- Loading -->
+                        <div data-bind="checkRows"></div>
+                        <div data-bind="if: rows().length < 1 " class="loading">
+                            <div class="lds-spinner">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <!-- </div> -->
+                        <!-- end Loading -->
+                        <tr>
+                            <td>
+                                <input type="checkbox"
+                                    data-bind="checkedValue: $data.isSelectedRows, checked: $root.selectedRowsValue, event: { change: $data.refresh }">
+                            </td>
+                            <td>
+                                <label data-bind=" text: $index()"></label>
+                            </td>
+                            <!-- ko foreach: cells -->
+                            <td data-bind="css: $parent.class[$index()]+$root.classID(), click:$parent.edit[$index()]">
+                                <label data-bind="text: $data"></label>
+                            </td>
+                            <!-- /ko -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--======================================================-->
+            <!--==================== end main-Table ==================-->
+            <!--======================================================-->
+
+            <div id="separator" class="hidden"></div>
+
+            <!--======================================================-->
+            <!--================== start sub-Table ===================-->
+            <!--======================================================-->
+            <div class="blur TableSub hidden" id="TableSubConter">
+                <table class="table table-bordered resizable" data-bind="css:'table'+ $root.classID()" id="TableSub">
+                    <thead>
+                        <header class="navbar navbar-expand-lg blurTable  ">
+                            <div class="navbar-container d-flex ">
+                                <ul class="navbar-nav d-contents">
+                                    <li>
+                                        <button class="hidden"
+                                            data-bind="css:'isCanShowSelectedRows'+ $root.classID(), click:cleanSelectedRows">clean
+                                            selected
+                                            Rows</button>
+                                    </li>
+                                    <li class="me-5">
+                                        <div class="dropdown">
+                                            <div class="dropdown-check-list"
+                                                data-bind="click:checkList1, css: 'checkList1'+classID() "
+                                                tabindex="100">
+                                                <span class="anchor">propertys</span>
+                                                <ul class="items blurTable border-radius-lg">
+                                                    <li>
+                                                        <label class="px-1">
+                                                            <input type="checkbox"
+                                                                data-bind="checked: selectedAllPropertys"
+                                                                title="Select all/none" />
+                                                            Select all/none
+                                                        </label>
+                                                    </li>
+                                                    <!-- ko foreach: propertys -->
+                                                    <li>
+                                                        <label class="px-1">
+                                                            <input type="checkbox"
+                                                                data-bind="checkedValue: $data, checked: $parent.selectedPropertys, attr: { id: $data.text }">
+                                                            <label
+                                                                data-bind="attr: { for: $data.text }, text:$data.text"></label>
+                                                        </label>
+                                                    </li>
+                                                    <!-- /ko -->
+                                                </ul>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="me-5">
+                                        <div class="dropdown">
+                                            <div data-bind="click:checkList2, css: 'checkList2'+classID() "
+                                                class="dropdown-check-list" tabindex="100">
+                                                <span class="anchor">Export</span>
+                                                <ul class="items blurTable border-radius-lg">
+                                                    <li>
+                                                        <label class="px-1">
+                                                            <button id='DLtoExcel' class="btn btn-danger">Export
+                                                                Excel</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button id='DLtoTxt' class="btn btn-danger">Export
+                                                                Txt</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button id='DLtoJson' class="btn btn-danger">Export
+                                                                Json</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button id='DLtoXml' class="btn btn-danger">Export
+                                                                Xml</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button id='DLtoSql' class="btn btn-danger">Export
+                                                                Sql</button>
+                                                        </label>
+                                                        <label class="px-1">
+                                                            <button id='DLtoDoc' class="btn btn-danger">Export
+                                                                Doc</button>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </header>
+                        <!-- <tr>
+                            <div style="cursor: move;" data-bind="dropzone: propertys">
+                                <th style="cursor: move;">
+                                    <label class="item draggable" style="cursor: move;"
+                                        data-bind="text:$data.text">test</label>
+                                </th>
+                            </div>
+                        </tr> -->
+                        <tr>
+                            <th>
+                                <button class="isCanShowSelectedRows hidden"
+                                    data-bind="click:showSelectedRows, text:showSelectedRowstxt, attr: { title:showSelectedRowstit }"></button>
+                            </th>
+                            <th>
+                                <button class=" hidden"
+                                    data-bind="click:cleanSearchArray, css: 'isCanClearnSearchInput'+classID() ">X</button>
+                            </th>
+                            <!-- ko foreach: columns -->
+                            <th data-bind="css:displayName+ $root.classID()">
+                                <div class="resize">
+                                    <!-- /* Binding the searchInput to the textInput. */ -->
+                                    <div class="search-body">
+                                        <input type="search" class="form-control searchInput" id="search"
+                                            data-bind=" attr: {placeholder: displayName}, textInput: searchInput, valueUpdate:'keyup'">
+                                        <!-- /* A label that is bound to the searchInput. */ -->
+                                    </div>
+                                </div>
+                            </th>
+                            <!-- /ko -->
+                        </tr>
+                        <!-- /* Creating a table row for each column. */ -->
+                        <tr>
+                            <th>
+                                <!-- <input type="checkbox" data-bind="checked:isSelectedAllRowsChecked" title="" /> -->
+                                <input type="checkbox" data-bind="checked:selectedRowsEvent" title="" />
+                            </th>
+                            <th>
+                                <label>#</label>
+                            </th>
+                            <!-- ko foreach: columns -->
+                            <!-- /* A click event that is bound to the `fold` function. */ -->
+                            <th data-bind=" click:fold, css:displayName">
+                                <div class="d-flex justify-content-between">
+                                    <!-- /* A label that is bound to the searchInput. */ -->
+                                    <label data-bind="text: displayName"></label>
+                                    <div data-bind="class: sortClass"></div>
+                                </div>
+                            </th>
+                            <!-- /ko -->
+                        </tr>
+                    </thead>
+                    <!-- /* Creating a table row for each row in the data. */ -->
+                    <tbody data-bind="foreach: rows">
+                        <!-- Loading -->
+                        <div data-bind="checkRows"></div>
+                        <!-- <div data-bind="if: rows().length < 1 " class="loading">
+               <div class="lds-spinner">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+               </div>
+            </div> -->
+                        <!-- </div> -->
+                        <!-- end Loading -->
+                        <tr>
+                            <td>
+                                <input type="checkbox" data-bind="attr: { value: cells}, checked: $parent.selectedRows">
+                            </td>
+                            <td>
+                                <label data-bind=" text: $index()"></label>
+                            </td>
+                            <!-- ko foreach: cells -->
+                            <td data-bind="css: $parent.class[$index()]+$root.classID(), click:$parent.edit[$index()]">
+                                <label data-bind="text: $data"></label>
+                            </td>
+                            <!-- /ko -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--======================================================-->
+            <!--==================== end sub-Table ===================-->
+            <!--======================================================-->
+
+
+            <!--======================================================-->
+            <!--==================== start Form-Table ================-->
+            <!--======================================================-->
+            <div class="blur TableForm hidden" id="TableForm">
+                <div class="TableForm-content">
+                    <div class="title d-inline-flex justify-content-between">
+                        <div class="title-contant">
+                            Form
+                        </div>
+                        <div class="btn-close" data-bind="click:btnCloseForm"></div>
+                    </div>
+                    <div class="body">
+                        <div class="main" data-bind="foreach: nodes">
+                            <div class="inputBox">
+                                <span data-bind="text:text"></span>
+                                <input type="text"
+                                    data-bind=" attr: {placeholder: value}, value: value, textInput: searchInput, valueUpdate:'keyup'">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p data-bind="text: msg">
+                        </p>
+                    </div>
+                    <div class="footer">
+                        <div></div>
+                        <div>
+                            <button class="btn" style="color: rgb(255 58 49)"
+                                data-bind="click:closeForm">Cencel</button>
+                            <button class="btn" style="background-color:rgb(78 217 100)"
+                                data-bind="click:btnSusForm">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--======================================================-->
+            <!--==================== end Form-Table ==================-->
+            <!--======================================================-->
+        </div>
+        <script type="text/javascript" src="./assets/js/cltserver.js"></script>
+        <script type="text/javascript" src="./assets/extern/Drag_Drop/drag_drop.class.js"></script>
+        <script type="text/javascript" src="./assets/extern/loading/loading.js"></script>
+        <script type="text/javascript" src="./assets/extern/tableExport/tableExport.min.js"></script>
+        <script type="text/javascript" src="./assets/js/dist/tableform.class.js"></script>
+        <script type="text/javascript" src="./assets/js/dist/tableVM.class.js"></script>
+        <script type="text/javascript" src="./assets/js/dist/createTable.class.js"></script>
+        <script type="text/javascript" src="./assets/js/applyBindings.js"></script>
+    </body>
+
+</html>
